@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -21,6 +21,12 @@ Route::get('dashboard', function () {
 Route::get('contador', function () {
     return Inertia::render('Contador');
 })->middleware(['auth', 'verified'])->name('contador');
+
+
+Route::get('categorias_data',[CategoriaController::class, 'listarCategoria']);
+
+
+
 
 
 
