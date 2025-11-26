@@ -9,3 +9,8 @@
 (v 3) -> Prueba de exportacion a PDF del reporte de categorias
 --------------------------
 ![shikanokonokonoko](https://github.com/user-attachments/assets/05ddc424-ec7a-4f06-a36c-9580932e3385)
+
+(v 4) -> Coso de reportes en una nueva ruta de categoria
+--------------------------
+![pochita](https://github.com/user-attachments/assets/b83cb219-6119-40ee-b8aa-d4023ebe4802)
+
