@@ -3,7 +3,6 @@
 <head>
     <title>Reporte de Categorías</title>
     <style>
-        /* Puedes usar CSS básico aquí para dar formato al PDF */
         body { font-family: sans-serif; }
         table { width: 100%; border-collapse: collapse; }
         th, td { border: 1px solid black; padding: 8px; text-align: left; }
