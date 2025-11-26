@@ -70,3 +70,4 @@ const breadcrumbs: BreadcrumbItem[] = [
     border-radius: 5px;
 }
 </style>
+
