@@ -17,12 +17,24 @@ const breadcrumbs: BreadcrumbItem[] = [
     <Head title="Dashboard" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
-        <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-
+        <div
+            class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4"
+        >
             <p class="text-2xl text-indigo-400">🎀Andree Contreras🐼</p>
-            
+
             <div class="grid auto-rows-min gap-4 md:grid-cols-3"></div>
             <div>
+                <div class="dashboard-settings">
+                    <div class="report-section my-4">
+                        <h3>Reporte de Categorías</h3><br>
+                        <a
+                            href="/categorias-exportar-pdf"
+                            class="btn btn-success"
+                        >
+                            Descargar PDF
+                        </a>
+                    </div>
+                </div>
                 <div
                     class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
                 >
@@ -39,6 +51,7 @@ const breadcrumbs: BreadcrumbItem[] = [
                     <PlaceholderPattern />
                 </div>
             </div>
+
             <div
                 class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border"
             >
@@ -47,3 +60,13 @@ const breadcrumbs: BreadcrumbItem[] = [
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.btn-success {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+</style>

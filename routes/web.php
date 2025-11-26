@@ -23,7 +23,11 @@ Route::get('contador', function () {
 })->middleware(['auth', 'verified'])->name('contador');
 
 
-Route::get('categorias_data',[CategoriaController::class, 'listarCategoria']);
+Route::get('categorias-data',[CategoriaController::class, 'listarCategoria']);
+
+Route::get('categorias-exportar-pdf', [CategoriaController::class, 'exportarCategoriasPDF'])
+    ->name('categorias.export.pdf');
+
 
 
 
