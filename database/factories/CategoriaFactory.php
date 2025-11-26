@@ -19,7 +19,7 @@ class CategoriaFactory extends Factory
         return [
             'nombre_categoria' => fake()->words(1, true),
             'descripcion' => fake()->words(5, true),
-            'estado' => fake()-> boolean(1)
+            'estado' => fake()-> boolean(80)
         ];
     }
 }

@@ -41,7 +41,14 @@ onMounted(listarCategoria);
                 <p class="text-2xl text-amber-600">🐼 Gestión Categoria 🎀</p>
                 <small>{{ minombre }}</small>
             </div>
-
+            <div class=" dashboard-settings">
+                <div class="flex flex-col items-center justify-center report-section my-4">
+                    <h3>Reporte de Categorías</h3><br>
+                    <a href="/categorias-exportar-pdf" class="btn btn-success">
+                            Descargar
+                    </a>
+                </div>
+            </div>
             <div>
                 <div class="overflow-x-auto">
                     <table
@@ -74,3 +81,13 @@ onMounted(listarCategoria);
         </div>
     </AppLayout>
 </template>
+
+<style scoped>
+.btn-success {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+</style>

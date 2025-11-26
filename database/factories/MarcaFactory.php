@@ -18,7 +18,7 @@ class MarcaFactory extends Factory
     {
         return [
             'nombre_marca' => fake()->words(3, true),
-            'estado' => fake()-> boolean(1)
+            'estado' => fake()-> boolean(80)
         ];
     }
 }
