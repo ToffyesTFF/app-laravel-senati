@@ -14,3 +14,8 @@
 --------------------------
 ![pochita](https://github.com/user-attachments/assets/b83cb219-6119-40ee-b8aa-d4023ebe4802)
 
+(v 5) -> Implementacion de botones de editar, eliminar y agregar en la parte de categorias (prueba)
+--------------------------
+![power](https://github.com/user-attachments/assets/a6e3c5f4-6ad3-438e-aefc-c2e1d94e5cb4)
+
+
