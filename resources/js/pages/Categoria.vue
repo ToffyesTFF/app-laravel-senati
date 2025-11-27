@@ -9,21 +9,21 @@ import { onMounted, ref } from 'vue';
 
 import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogFooter,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import {
+    FileDown,
+    Plus,
+    Save,
+    SquarePen,
+    Sticker,
+    Trash2,
+    X,
+} from 'lucide-vue-next';
 
 declare const route: (...params: any) => string;
 
-interface CategoriaData 
-{
+interface CategoriaData {
     id: number;
     nombre_categoria: string;
     descripcion: string;
@@ -32,8 +32,7 @@ interface CategoriaData
     updated_at?: string;
 }
 
-interface ApiResponse 
-{
+interface ApiResponse {
     success: boolean;
     nombre: string;
     data: CategoriaData[];
@@ -42,20 +41,20 @@ interface ApiResponse
 const page = usePage();
 const categorias = ref<CategoriaData[]>([]);
 const minombre = ref('');
-const showDialog = ref(false);
-const isEditMode = ref(false);
+const mostrarModal = ref(false);
+const paEditarModal = ref(false);
 const isLoading = ref(true);
 
-const form = useForm
-({
-    id: null as number | null,
-    nombre_categoria: '',
-    descripcion: '',
-    estado: true,
-});
+const formulario = ref(
+    {
+        nombre_categoria: '',
+        descripcion: '',
+        estado: true,
+    }
+);
 
-const breadcrumbs = 
-[
+
+const breadcrumbs = [
     {
         title: 'Categoria',
         href: '/categoria',
@@ -86,50 +85,25 @@ const listarCategoria = async () => {
     }
 };
 
-const openCreateDialog = () => {
-    isEditMode.value = false;
-    form.reset();
-    form.clearErrors();
-    showDialog.value = true;
+const abrirModal = () => {
+    mostrarModal.value = true;
 };
 
-const openEditDialog = (item: CategoriaData) => {
-    isEditMode.value = true;
-    form.clearErrors();
-    form.id = item.id;
-    form.nombre_categoria = item.nombre_categoria;
-    form.descripcion = item.descripcion;
-    form.estado = item.estado === 1;
-    showDialog.value = true;
+const cerrarModal = () => {
+    mostrarModal.value = false;
 };
 
-const submitForm = () => {
-    const url =
-        isEditMode.value && form.id
-            ? `/categorias/${form.id}`
-            : '/categorias';
 
-    const method = isEditMode.value ? 'patch' : 'post';
+const enviarFormulario = () => {
+    console.log('Andree Contreras');
+    console.log(formulario.value);
 
-    form[method](url, {
-        onSuccess: () => {
-            showDialog.value = false;
-            listarCategoria();
-            checkFlashMessage();
-        },
-    });
+    
+
+    
 };
 
-const confirmDelete = (item: CategoriaData) => {
-    if (confirm(`¿Eliminar la categoría "${item.nombre_categoria}"?`)) {
-        router.delete(`/categorias/${item.id}`, {
-            onSuccess: () => {
-                listarCategoria();
-                checkFlashMessage();
-            },
-        });
-    }
-};
+
 
 onMounted(() => {
     listarCategoria();
@@ -144,26 +118,39 @@ onMounted(() => {
         <div class="flex flex-col items-center justify-center">
             <div class="mt-4 flex flex-col items-center justify-center">
                 <p class="text-2xl text-amber-600">🐼 Gestión Categoria 🎀</p>
-                <small>{{ minombre }}</small>
+                <small>{{ minombre }}</small
+                ><br />
+                <img src="andreewdev.jpg" width="80" :height="80" />
             </div>
             <div class="dashboard-settings">
-                <div class="report-section my-4 flex flex-col items-center justify-center">
+                <div
+                    class="report-section my-4 flex flex-col items-center justify-center"
+                >
                     <h3>Reporte de Categorías</h3>
-                    <br>
-                    <a href="/categorias-exportar-pdf" class="btn btn-success">
-                        Descargar
-                    </a><br>
-                    <Button @click="openCreateDialog">
-                        + Nueva Categoría
-                    </Button><br>    
+                    <br />
+                    <a
+                        href="/categorias-exportar-pdf"
+                        class="btn btn-success flex flex-col items-center justify-center"
+                    >
+                        Download
+                        <FileDown /> </a
+                    ><br />
+                    <Button @click="abrirModal">
+                        <Plus /> Crear nueva categoría
+                        <Sticker /> </Button
+                    ><br />
                 </div>
             </div>
 
             <div>
                 <div class="overflow-x-auto">
-                    <table class="min-w-full divide-y-2 divide-gray-200 dark:divide-gray-700">
+                    <table
+                        class="min-w-full divide-y-2 divide-gray-200 dark:divide-gray-700"
+                    >
                         <thead class="ltr:text-left rtl:text-right">
-                            <tr class="*:font-medium *:text-gray-900 dark:*:text-white">
+                            <tr
+                                class="*:font-medium *:text-gray-900 dark:*:text-white"
+                            >
                                 <th class="px-3 py-2 whitespace-nowrap">
                                     Nombre
                                 </th>
@@ -173,14 +160,22 @@ onMounted(() => {
                                 <th class="px-3 py-2 whitespace-nowrap">
                                     Estado
                                 </th>
-                                <th class="px-3 py-2 whitespace-nowrap flex flex-col items-center justify-center">
+                                <th
+                                    class="flex flex-col items-center justify-center px-3 py-2 whitespace-nowrap"
+                                >
                                     Opciones
                                 </th>
                             </tr>
                         </thead>
 
-                        <tbody class="divide-y divide-gray-200 *:even:bg-gray-50 dark:divide-gray-700 dark:*:even:bg-gray-800">
-                            <tr v-for="item in categorias" :key="item.id" class="*:text-gray-900 *:first:font-medium dark:*:text-white">
+                        <tbody
+                            class="divide-y divide-gray-200 *:even:bg-gray-50 dark:divide-gray-700 dark:*:even:bg-gray-800"
+                        >
+                            <tr
+                                v-for="item in categorias"
+                                :key="item.id"
+                                class="*:text-gray-900 *:first:font-medium dark:*:text-white"
+                            >
                                 <td class="px-3 py-2 whitespace-nowrap">
                                     {{ item.nombre_categoria }}
                                 </td>
@@ -205,83 +200,141 @@ onMounted(() => {
                                 </td>
 
                                 <td class="space-x-2 px-6 py-4 text-center">
-                                    <Button class="btn-azul" variant="outline" size="sm" @click="openEditDialog(item)">
-                                        Editar
-                                    </Button>
-                                    <Button variant="destructive" size="sm" @click="confirmDelete(item)">
-                                        Eliminar
-                                    </Button>
+                                    <a
+                                        class="group relative inline-block"
+                                        href="#"
+                                    >
+                                        <span
+                                            class="absolute inset-0 translate-x-1.5 translate-y-1.5 bg-sky-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 group-hover:bg-blue-500"
+                                        ></span>
+
+                                        <span
+                                            class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black uppercase"
+                                            variant="outline"
+                                            size="sm"
+                                            @click="openEditDialog(item)"
+                                        >
+                                            <SquarePen />
+                                        </span>
+                                    </a>
+                                    <a
+                                        class="group relative inline-block"
+                                        href="#"
+                                    >
+                                        <span
+                                            class="absolute inset-0 flex translate-x-1.5 translate-y-1.5 bg-red-300 transition-transform group-hover:translate-x-0 group-hover:translate-y-0 group-hover:bg-red-500"
+                                        ></span>
+
+                                        <span
+                                            class="relative inline-block border-2 border-current px-8 py-3 text-sm font-bold tracking-widest text-black uppercase"
+                                            variant="destructive"
+                                            size="sm"
+                                            @click="confirmDelete(item)"
+                                        >
+                                            <Trash2 />
+                                        </span>
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <!-- Modal registro categoria -->
+                <div
+                    class="fixed inset-0 z-50 grid place-content-center bg-black/50 p-4"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-labelledby="modalTitle"
+                    v-if="mostrarModal"
+                >
+                    <div
+                        class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-gray-900"
+                    >
+                        <h2
+                            id="modalTitle"
+                            class="text-xl font-bold text-gray-900 sm:text-2xl dark:text-white"
+                        >
+                            Resgistro categoria
+                        </h2>
+
+                        <form
+                            @submit.prevent=""
+                            class="grid gap-4 py-4"
+                        >
+                            <div
+                                class="mt-2 grid grid-cols-4 items-center gap-4"
+                            >
+                                <Label for="nombre_categoria" class="text-right"
+                                    >Nombre</Label
+                                >
+                                <div class="col-span-3">
+                                    <Input
+                                        type="text"
+                                        id="nombre_categoria"
+                                        v-model="formulario.nombre_categoria"
+                                    />
+                                </div>
+                            </div>
+                            <label for="Notes">
+                                <span
+                                    class="text-sm font-medium text-gray-700 dark:text-gray-200"
+                                >
+                                    Descripcion
+                                </span>
+
+                                <textarea
+                                    id="descripcion"
+                                    v-model="formulario.descripcion"
+                                    class="mt-0.5 w-full resize-none rounded shadow-sm sm:text-sm dark:border-gray-600 dark:bg-gray-900 dark:text-white"
+                                    rows="4"
+                                ></textarea>
+                            </label>
+                            <div class="grid grid-cols-4 items-center gap-4">
+                                <Label for="status" class="text-right"
+                                    >Estado</Label
+                                >
+                                <div class="col-span-3 flex items-center gap-2">
+                                    <input
+                                        type="checkbox"
+                                        id="status"
+                                        class="rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500"
+                                    />
+                                    <span class="text-sm text-gray-600">{{
+                                    }}</span>
+                                </div>
+                            </div>
+                            <footer class="mt-6 flex justify-end gap-2">
+                                <button
+                                    type="button"
+                                    class="flex items-center gap-2 rounded bg-gray-100 px-4 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+                                    @click="cerrarModal"
+                                >
+                                    <X />
+                                    Cancel
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    @click="enviarFormulario"
+                                    class="flex items-center gap-2 rounded bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                                >
+                                    <Save />
+                                    {{
+                                        paEditarModal
+                                            ? 'Guardar Cambios'
+                                            : 'Guardar'
+                                    }}
+                                </button>
+                            </footer>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <Dialog :open="showDialog" @update:open="showDialog = $event">
-            <DialogContent class="sm:max-w-[425px]">
-                <DialogHeader>
-                    <DialogTitle>{{
-                        isEditMode ? 'Editar Categoría' : 'Crear Categoría'
-                    }}</DialogTitle>
-                    <DialogDescription>
-                        Completa la información de la categoría aquí.
-                    </DialogDescription>
-                </DialogHeader>
-
-                <form @submit.prevent="submitForm" class="grid gap-4 py-4">
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="name" class="text-right">Nombre</Label>
-                        <div class="col-span-3">
-                            <Input id="name" v-model="form.nombre_categoria" />
-                            <InputError
-                                :message="form.errors.nombre_categoria"
-                                class="mt-1"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="desc" class="text-right">Descripción</Label>
-                        <div class="col-span-3">
-                            <Input id="desc" v-model="form.descripcion" />
-                            <InputError
-                                :message="form.errors.descripcion"
-                                class="mt-1"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-4 items-center gap-4">
-                        <Label for="status" class="text-right">Estado</Label>
-                        <div class="col-span-3 flex items-center gap-2">
-                            <input
-                                type="checkbox"
-                                id="status"
-                                v-model="form.estado"
-                                class="rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500"
-                            />
-                            <span class="text-sm text-gray-600">{{
-                                form.estado ? 'Activo' : 'Inactivo'
-                            }}</span>
-                        </div>
-                    </div>
-
-                    <DialogFooter>
-                        <Button type="submit" :disabled="form.processing">
-                            {{ isEditMode ? 'Guardar Cambios' : 'Crear' }}
-                        </Button>
-                    </DialogFooter>
-                </form>
-            </DialogContent>
-        </Dialog>
     </AppLayout>
 </template>
 
 <style scoped>
-
-
 .btn-success {
     padding: 10px 20px;
     background-color: #28a745;
@@ -289,6 +342,7 @@ onMounted(() => {
     text-decoration: none;
     border-radius: 5px;
 }
+
 .btn-azul {
     padding: 10px 20px;
     background-color: #157dc2;

@@ -24,17 +24,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
             <div class="grid auto-rows-min gap-4 md:grid-cols-3"></div>
             <div>
-                <div class="dashboard-settings">
-                    <div class="report-section my-4">
-                        <h3>Reporte de Categorías</h3><br>
-                        <a
-                            href="/categorias-exportar-pdf"
-                            class="btn btn-success"
-                        >
-                            Descargar PDF
-                        </a>
-                    </div>
-                </div>
                 <div
                     class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border"
                 >
