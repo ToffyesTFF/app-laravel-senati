@@ -1,5 +1,5 @@
 <?php
-
+//prueba
 use App\Http\Controllers\CategoriaController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,23 +29,23 @@ Route::get('contador', function () {
 })->middleware(['auth', 'verified'])->name('contador');
 
 
+Route::middleware(['auth', 'verified'])->group(function () {
 
-/////////
-Route::get('categorias-data', [CategoriaController::class, 'listarCategoria']);
+    Route::get('categoria', function () {
+        return Inertia::render('Categoria');
+    })->name('categoria');
 
-Route::get('categorias-exportar-pdf', [CategoriaController::class, 'exportarCategoriasPDF'])
-    ->name('categorias.export.pdf');
-//////////
+    Route::get('categorias-data', [CategoriaController::class, 'listarCategoria']);
 
+    Route::get('categorias-exportar-pdf', [CategoriaController::class, 'exportarCategoriasPDF'])
+        ->name('categorias.export.pdf');
 
-Route::get('categoria', function () {
-    return Inertia::render('Categoria');
-})->middleware(['auth', 'verified'])->name('categoria');
-
-
-
-
-
+    Route::post('categorias', [CategoriaController::class, 'agregarCategoria'])->name('categorias.store');
+    Route::patch('categorias/{categoria}', [CategoriaController::class, 'editarCategoria'])->name('categorias.update');
+    Route::delete('categorias/{categoria}', [CategoriaController::class, 'eliminarCategoria'])->name('categorias.destroy');
+});
 
 
 require __DIR__ . '/settings.php';
+
+?>
