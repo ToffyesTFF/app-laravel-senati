@@ -18,4 +18,10 @@
 --------------------------
 ![power](https://github.com/user-attachments/assets/a6e3c5f4-6ad3-438e-aefc-c2e1d94e5cb4)
 
+(v 6) -> Empezando la primera version de las funciones de crear,editar y eliminar (por ahora solo se termino el frontend inicial)
+--------------------------
+![power1](https://github.com/user-attachments/assets/c27e5b08-ec17-40ca-9f87-a0ad15fc093b)
+
+
+
 
