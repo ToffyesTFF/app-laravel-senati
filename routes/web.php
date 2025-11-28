@@ -40,8 +40,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('categorias-exportar-pdf', [CategoriaController::class, 'exportarCategoriasPDF'])
         ->name('categorias.export.pdf');
 
-    Route::post('categorias', [CategoriaController::class, 'agregarCategoria'])->name('categorias.store');
+
+////////////////
+    Route::get('categorias-data', [CategoriaController::class, 'listarCategoria']);
+
+    Route::post('categorias-data', [CategoriaController::class, 'guardarCategoria']);
+
+    Route::put('categorias-data/{id_categoria}', [CategoriaController::class, 'editarCategoria']);
+    
+    Route::delete('categorias-data/{id_categoria}', [CategoriaController::class, 'eliminarCategoria']);
+////////////
+
+
+
     Route::patch('categorias/{categoria}', [CategoriaController::class, 'editarCategoria'])->name('categorias.update');
+
+
     Route::delete('categorias/{categoria}', [CategoriaController::class, 'eliminarCategoria'])->name('categorias.destroy');
 });
 

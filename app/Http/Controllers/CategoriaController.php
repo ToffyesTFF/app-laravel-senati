@@ -12,7 +12,7 @@ class CategoriaController extends Controller
     public function listarCategoria()
     {
         try {
-            $categorias = Categoria::orderBy('created_at', 'asc')->get();
+            $categorias = Categoria::orderBy('created_at', 'desc')->get();
             return response()->json(
                 [
                     'success' => true,
@@ -25,22 +25,25 @@ class CategoriaController extends Controller
                 'success' => false,
                 'message' => 'Error al cargar categorías: ' . $e->getMessage(),
                 'data' => []
-            ], 500); 
+            ], 500);
         }
     }
 
-    public function agregarCategoria(Request $request)
+    public function guardarCategoria(Request $request)
     {
         $validated = $request->validate([
-            'nombre_categoria' => 'required|string|max:255|unique:categorias,nombre_categoria',
-            'descripcion' => 'nullable|string|max:1000',
+            'nombre_categoria' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:1000',
             'estado' => 'required|boolean',
         ]);
-
-        Categoria::create($validated);
-
-        return Redirect::route('categoria')
-            ->with('success', 'Categoría creada con éxito.');
+        $categoria = Categoria::create($request->all());
+        return response()->json(
+            [
+                'success' => true,
+                'nombre' => "Andree Contreras",
+                'data' => $categoria
+            ]
+        );
     }
 
     public function editarCategoria(Request $request, Categoria $categoria)
@@ -57,12 +60,17 @@ class CategoriaController extends Controller
             ->with('success', 'Categoría actualizada con éxito.');
     }
 
-    public function eliminarCategoria(Categoria $categoria)
+    public function eliminarCategoria($id_categoria)
     {
+        $categoria = Categoria::findOrFail($id_categoria);
         $categoria->delete();
-
-        return Redirect::route('categoria')
-            ->with('success', 'Categoría eliminada con éxito.');
+        return response()->json(
+            [
+                'success' => true,
+                'nombre' => "Andree Contreras",
+                'data' => $categoria
+            ]
+        );
     }
 
     public function exportarCategoriasPDF()
@@ -73,4 +81,3 @@ class CategoriaController extends Controller
         return $pdf->download('reporte-categorias-' . time() . '.pdf');
     }
 }
-?>
