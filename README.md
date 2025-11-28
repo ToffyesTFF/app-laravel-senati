@@ -22,6 +22,9 @@
 --------------------------
 ![power1](https://github.com/user-attachments/assets/c27e5b08-ec17-40ca-9f87-a0ad15fc093b)
 
+(v 7) -> Terminando las funciones de la creacion y eliminacion de categorias, en este caso tambien se implemento alertas de sweetalert2 para confirmaciones
+--------------------------
+![power2](https://github.com/user-attachments/assets/861d35bc-791b-40e1-8b57-9b7a9932531e)
 
 
 
