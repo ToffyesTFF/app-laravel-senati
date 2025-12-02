@@ -26,5 +26,8 @@
 --------------------------
 ![power2](https://github.com/user-attachments/assets/861d35bc-791b-40e1-8b57-9b7a9932531e)
 
+(v 8) -> Funciones de editar terminadas
+--------------------------
+
 
 
