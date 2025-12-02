@@ -46,8 +46,10 @@ class CategoriaController extends Controller
         );
     }
 
-    public function editarCategoria(Request $request, Categoria $categoria)
+    public function editarCategoria(Request $request, $id_categoria)
     {
+        $categoria = Categoria::findOrFail($id_categoria);
+
         $validated = $request->validate([
             'nombre_categoria' => 'required|string|max:255|unique:categorias,nombre_categoria,' . $categoria->id,
             'descripcion' => 'nullable|string|max:1000',
@@ -56,8 +58,13 @@ class CategoriaController extends Controller
 
         $categoria->update($validated);
 
-        return Redirect::route('categoria')
-            ->with('success', 'Categoría actualizada con éxito.');
+        return response()->json(
+            [
+                'success' => true,
+                'nombre' => "Andree Contreras",
+                'data' => $categoria
+            ]
+        );
     }
 
     public function eliminarCategoria($id_categoria)
